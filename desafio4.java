@@ -2,6 +2,9 @@ package desafio4;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.*;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class desafio4 {
 
@@ -63,11 +66,13 @@ public class desafio4 {
 				System.out.println("Ingrese nombre del jugador suplene");
 				nombre_supl[3] = entrada.next();
 
-				System.out.println("Ingrese apellido del jugador suplene");
+				System.out.println("Ingrese apellido del jugador suplente");
 				apellido_supl[3] = entrada.next();
 
 				System.out.println("Ingrese el numero de la camisa ");
 				nro_camisa_supl[3] = entrada.nextInt();
+				
+				analizarDatosCuatroJugadores();
 			}
 
 			System.out.println();
@@ -127,6 +132,35 @@ public class desafio4 {
 				mod_camisa = true;
 			}
 		}
+
+		try {
+			String ruta = "C:\\Users\\Alumno.A02-M19\\Documents\\ListaJugadores\\archivo_jugadores.txt";
+
+			File file = new File(ruta);
+
+			// Verificar si el archivo no existe, y si es asi, crearlo
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file);
+
+			BufferedWriter bw = new BufferedWriter(fw);
+
+			for (int i = 0; i < 3; i++) {
+				bw.write("Nombre: " + nombre[i] + ", Apellido: " + apellido[i]);
+
+				bw.newLine();
+			}
+			bw.close();
+
+			System.out.println("Archivo creado con éxito.");
+
+		} catch (Exception e) {
+			System.out.println("Error al escribir el archivo");
+			e.printStackTrace();
+
+		}
 	}
 
 	public static void analizarDatosCuatroJugadores() {
@@ -161,8 +195,8 @@ public class desafio4 {
 						nro_camisa_supl[i] = entrada.nextInt();
 
 						for (int j = 0; j < nro_camisa_supl.length; j++) {
-							System.out.println(
-									"Datos de los jugadores actualizados: " + nombre_supl[j] + apellido_supl[j] + nro_camisa_supl[j]);
+							System.out.println("Datos de los jugadores actualizados: " + nombre_supl[j]
+									+ apellido_supl[j] + nro_camisa_supl[j]);
 						}
 					}
 
@@ -173,12 +207,42 @@ public class desafio4 {
 				mod_camisa = true;
 			}
 		}
+		try {
+
+			String ruta2 = "C:\\Users\\Alumno.A02-M19\\Documents\\ListaJugadores\\archivo_jugadores2.txt";
+
+			File file = new File(ruta2);
+
+			if (!file.exists()) {
+
+				file.createNewFile();
+			}
+			FileWriter fw = new FileWriter(file);
+
+			BufferedWriter bw = new BufferedWriter(fw);
+
+			for (int i = 0; i < 4; i++) {
+
+				bw.write("Nombre: " + nombre_supl[i] + ", Apellido: " + apellido_supl[i]);
+
+				bw.newLine();
+			}
+			bw.close();
+
+			System.out.println("Archivo creado con éxito.");
+
+		} catch (Exception e) {
+			System.out.println("Error al escribir el archivo");
+			e.printStackTrace();
+
+		}
+
 	}
 
 	public static void main(String[] args) {
 
 		IngresaDatos();
 		agregarJugador();
-		
+
 	}
 }
